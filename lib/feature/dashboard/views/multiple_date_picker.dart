@@ -6,16 +6,20 @@ import 'package:natv/core/app/app_style.dart';
 import 'package:natv/feature/dashboard/bloc/ad_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../models/channel_discount_model.dart';
+
 class MultipleDatePicker extends StatelessWidget {
   MultipleDatePicker({
     super.key,
     required this.onChanged,
     required this.callbackCalculate,
+    required this.discount,
     this.selectedDates,
   });
   final Function(List<DateTime>) onChanged;
   final Function() callbackCalculate;
   List<DateTime>? selectedDates;
+  List<ChannelDiscount> discount;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,14 @@ class MultipleDatePicker extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              if (discount.isNotEmpty) ...[
+                Column(
+                  children: [
+                    const Text('При заказе на данном телеканале действует система скидок:'),
+                    for (var i in discount) ...[Text("от ${i.fromDaysCount} дн. - скидка  ${i.discount}%")],
+                  ],
+                ),
+              ],
               const Text(
                 "Выберите даты",
                 style: AppStyle.headLine1,
@@ -32,9 +44,7 @@ class MultipleDatePicker extends StatelessWidget {
               SizedBox(
                 child: SfDateRangePicker(
                   onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-                    if (args.value.length > 0) {
-                      onChanged(args.value);
-                    }
+                    onChanged(args.value);
                   },
                   selectionMode: DateRangePickerSelectionMode.multiple,
                   minDate: DateTime.now(),
@@ -51,7 +61,7 @@ class MultipleDatePicker extends StatelessWidget {
                   callbackCalculate();
                   Navigator.pop(context);
                 },
-                child: Text("Done"),
+                child: const Text("Done"),
               ),
             ],
           ),

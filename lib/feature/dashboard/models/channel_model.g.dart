@@ -11,6 +11,10 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
       channelName: json['channelName'] as String,
       logo: json['logo'] as String,
       pricePerLetter: (json['pricePerLetter'] as num).toDouble(),
+      discounts: (json['discounts'] as List<dynamic>)
+          .map((e) => ChannelDiscount.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      sum: (json['sum'] as num?)?.toDouble() ?? 0,
     );
 
 Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
@@ -18,4 +22,6 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
       'channelName': instance.channelName,
       'logo': instance.logo,
       'pricePerLetter': instance.pricePerLetter,
+      'sum': instance.sum,
+      'discounts': instance.discounts.map((e) => e.toJson()).toList(),
     };

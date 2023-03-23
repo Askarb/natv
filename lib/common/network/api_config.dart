@@ -6,6 +6,8 @@ class ApiConfig {
   static const Duration connectionTimeout = Duration(seconds: 15);
   static const String channelList = '/channel/list';
   static const String channelCalculate = '/channel/calculate';
+  static const String orderCreate = '/order/save';
+  static const String orderBannerCreate = '/order/save-banner';
   static const header = {
     'Content-Type': 'application/json',
   };

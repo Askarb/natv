@@ -14,14 +14,18 @@ class AdTextError extends AdState {
   AdTextError({required this.message});
 }
 
-// class SumUpdated extends AdState {
-//   final double sum;
-//   SumUpdated({required this.sum});
-// }
-
 class ChannelSuccessLoaded extends AdState {
   final List<Channel> model;
   final double sum;
 
   ChannelSuccessLoaded({required this.model, this.sum = 0});
+}
+
+class OrderCreateSuccess extends AdState {}
+
+class OrderCreateProcessing extends AdState {}
+
+class OrderCreateError extends AdState {
+  final String message;
+  OrderCreateError({required this.message});
 }

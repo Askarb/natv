@@ -46,7 +46,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         // home: AuthScreen(),
-        home: MainScreen(),
+        home: MainScreen(
+          currentIndex: 0,
+        ),
       ),
     );
   }
