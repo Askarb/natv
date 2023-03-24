@@ -61,7 +61,6 @@ class _MainScreenState extends State<MainScreen> {
               height: double.maxFinite,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(20),
-
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -154,7 +153,13 @@ class _MainScreenState extends State<MainScreen> {
                     BlocConsumer<AdBloc, AdState>(
                       listener: (context, state) {
                         if (state is OrderCreateSuccess) {
-                          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("ЗАЯВКА ЗАРЕГИСТРИРОВАНА")));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => const SuccessScreen(),
+                            ),
+                            (route) => false,
+                          );
                         } else if (state is OrderCreateError) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
                         }
@@ -164,13 +169,6 @@ class _MainScreenState extends State<MainScreen> {
                           onPressed: state is OrderCreateProcessing
                               ? null
                               : () {
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) => const SuccessScreen(),
-                                    ),
-                                    (route) => false,
-                                  );
                                   BlocProvider.of<AdBloc>(context).add(CreateOrder());
                                 },
                           child: const Text('разместить объявление'),
@@ -179,8 +177,6 @@ class _MainScreenState extends State<MainScreen> {
                     )
                   ],
                 ),
-
-                // child: [TextAdPage(), TextAdPage()][currentIndex],
               ),
             ),
           ),

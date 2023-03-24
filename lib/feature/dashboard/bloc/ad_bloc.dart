@@ -53,6 +53,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
     }
     selectedDates = {};
     sumTotal = 0;
+    _base64image = null;
     emit(ChannelSuccessLoaded(model: channelList, sum: sumTotal));
   }
 
